@@ -1,9 +1,10 @@
 <!--make sure that this info. goes to the database file-->
 <!--going to include the info we have here to the php file-->
 <?php
-require_once (__DIR__ . "/../model/database.php");
+require_once (__DIR__ . "/../model/config.php");
 
 $connection = new mysqli($host, $username, $password);
+
 //showing why the program shut off
 if ($connection->connect_error) {
     die("<p>Error: " . $connection->connect_error . "</p>");
