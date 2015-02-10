@@ -8,12 +8,31 @@ class Database {
     private $username;
     private $password;
     private $database;
+    public $error;
 
     public function __construct($host, $username, $password, $database) {
         $this->host = $host;
         $this->username = $username;
         $this->password = $password;
         $this->database = $database;
+
+        $this->connection = new mysqli($host, $username, $password);
+
+//showing why the program shut off
+        if ($this->connection->connect_error) {
+            die("<p>Error: " . $this->connection->connect_error . "</p>");
+        }
+//"!" means it doesnt exists
+        $exists = $this->connection->select_db($database);
+        if (!$exists) {
+            $query = $this->connection->query("CREATE DATABASE $database");
+
+            if ($query) {
+                echo "<p>Successfully created database: " . $database . "</p>";
+            }
+        } else {
+            echo "<p>Database already exists.</p>";
+        }
     }
 
     public function openConnection() {
@@ -37,12 +56,17 @@ class Database {
 
     public function query($string) {
         $this->openConnection();
-        
+
         $query = $this->connection->query($string);
-        
+//        if query id false it will turn it to true
+        if(!query) {
+            $this->error = $this->connection->error; 
+        }
+
         $this->closeConnection();
-        
+
         return $query;
     }
+
 //public any file can access it
 }
