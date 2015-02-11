@@ -4,7 +4,7 @@
 require_once (__DIR__ . "/../model/config.php");
 //creating tables by connection tables together that we are
 //able to put into text
-$query = $connection->query("CREATE TABLE  posts ("
+$query = $_SESSION["connection"]->query("CREATE TABLE  posts ("
         . "id int (11) NOT NULL AUTO_INCREMENT,"
         . "title  varchar (255) NOT NULL,"
         . "post text NOT NULL,"
@@ -13,6 +13,7 @@ $query = $connection->query("CREATE TABLE  posts ("
 if ($query) {
     echo "<p>Successfully created table: post</p>";
 } else {
-    echo "<p>$connection->error</p>";
+    echo "<p>" . $_SESSION["connection"]->error ."</p>";
 }
-//^ helps us make a query
+//^ helps us make a query and if figure out if query
+//was succesful or not

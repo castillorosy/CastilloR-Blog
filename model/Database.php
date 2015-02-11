@@ -59,7 +59,7 @@ class Database {
 
         $query = $this->connection->query($string);
 //        if query id false it will turn it to true
-        if(!query) {
+        if(!$query) {
             $this->error = $this->connection->error; 
         }
 
